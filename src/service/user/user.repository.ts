@@ -1,16 +1,34 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { Repository } from "../../core/repository.js";
 import { usersTable } from "../../db/db.schema.js";
-import { takeFirstOrThrow } from "../../utility/db.js";
+import { takeFirstOrNull, takeFirstOrThrow } from "../../utility/db.js";
 
 class UserRepository extends Repository {
   async createUser({ name, password }: { name: string; password: string }) {
+    const existing = await this.readUserByNameAndPassword({ name, password });
+    if (existing) return existing;
+
     const user = await this.db
       .insert(usersTable)
       .values({ name, password })
       .returning()
       .then(takeFirstOrThrow);
+    return user;
+  }
+
+  async readUserByNameAndPassword({
+    name,
+    password,
+  }: {
+    name: string;
+    password: string;
+  }) {
+    const user = await this.db
+      .select()
+      .from(usersTable)
+      .where(and(eq(usersTable.name, name), eq(usersTable.password, password)))
+      .then(takeFirstOrNull);
     return user;
   }
 
