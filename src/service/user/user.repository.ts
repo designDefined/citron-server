@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 
-import { Repository } from "../../core/repository";
-import { usersTable } from "../../db/db.schema";
-import { takeFirstOrThrow } from "../../utility/db";
+import { Repository } from "../../core/repository.js";
+import { usersTable } from "../../db/db.schema.js";
+import { takeFirstOrThrow } from "../../utility/db.js";
 
 class UserRepository extends Repository {
   async createUser({ name, password }: { name: string; password: string }) {

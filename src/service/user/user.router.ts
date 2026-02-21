@@ -1,9 +1,9 @@
 import { Hono } from "hono";
 
-import { db } from "../../db";
-import { integerId } from "../../utility/parameter";
-import { UserRepository } from "./user.repository";
-import { PostUserPayload } from "./user.types";
+import { db } from "../../db/index.js";
+import { integerId } from "../../utility/parameter.js";
+import { UserRepository } from "./user.repository.js";
+import { PostUserPayload } from "./user.types.js";
 
 const userPrefix = "/users";
 const userRouter = new Hono();

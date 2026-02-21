@@ -2,8 +2,8 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
-import { env } from "./env";
-import { userPrefix, userRouter } from "./service/user/user.router";
+import { env } from "./env.js";
+import { userPrefix, userRouter } from "./service/user/user.router.js";
 
 const app = new Hono();
 app.use(cors());
